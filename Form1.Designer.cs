@@ -61,7 +61,6 @@
             this.Controls.Add(this.ButtonGenerate);
             this.Name = "FieldForm";
             this.Text = "Strategy";
-            this.Load += new System.EventHandler(this.FieldForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

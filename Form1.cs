@@ -49,6 +49,11 @@ namespace Strategy
             }
             buttonsTab[value_1, value_2].BackColor = Color.Red;
 
+            value_1 = rand.Next(0, fieldSize);
+            value_2 = rand.Next(0, fieldSize);
+
+            buttonsTab[value_1, value_2].BackColor = Color.Blue;
+
         }
 
         private void ButtonClicked(object sender, EventArgs e)
@@ -76,7 +81,7 @@ namespace Strategy
         {
             //Warunek pole i = 0, j=0
 
-            if(value_i == 0 && value_j == 0)
+            if (value_i == 0 && value_j == 0)
             {
                 if (isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i + 1, value_j + 1])) return true;
                 else return false;
@@ -88,17 +93,17 @@ namespace Strategy
             }
             if (value_i == 0 && value_j == 9)
             {
-                if (isRed(buttonsTab[value_i , value_j-1]) || isRed(buttonsTab[value_i+1, value_j ]) || isRed(buttonsTab[value_i + 1, value_j - 1])) return true;
+                if (isRed(buttonsTab[value_i, value_j - 1]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i + 1, value_j - 1])) return true;
                 else return false;
             }
             if (value_i == 9 && value_j == 0)
             {
-                if (isRed(buttonsTab[value_i - 1, value_j ]) || isRed(buttonsTab[value_i , value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j + 1])) return true;
+                if (isRed(buttonsTab[value_i - 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j + 1])) return true;
                 else return false;
             }
-            if (value_i == 0 && value_j >0 && value_j < 9)
+            if (value_i == 0 && value_j > 0 && value_j < 9)
             {
-                if (isRed(buttonsTab[value_i , value_j-1]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i + 1, value_j ])) return true;
+                if (isRed(buttonsTab[value_i, value_j - 1]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i + 1, value_j])) return true;
                 else return false;
             }
             if (value_i == 9 && value_j > 0 && value_j < 9)
@@ -106,79 +111,22 @@ namespace Strategy
                 if (isRed(buttonsTab[value_i, value_j - 1]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j])) return true;
                 else return false;
             }
-            if (value_i > 0 && value_i < 9 && value_j ==0)
+            if (value_i > 0 && value_i < 9 && value_j == 0)
             {
-                if (isRed(buttonsTab[value_i-1, value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1])) return true;
+                if (isRed(buttonsTab[value_i - 1, value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1])) return true;
                 else return false;
             }
             if (value_i > 0 && value_i < 9 && value_j == 9)
             {
-                if (isRed(buttonsTab[value_i - 1, value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i - 1, value_j - 1])) return true;
+                if (isRed(buttonsTab[value_i - 1, value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j - 1])) return true;
                 else return false;
             }
             if (value_i > 0 && value_i < 9 && value_j > 0 && value_j < 9)
             {
-                if (isRed(buttonsTab[value_i , value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j ]) || isRed(buttonsTab[value_i, value_j - 1]) /*|| isRed(buttonsTab[value_i + 1, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j - 1]) || isRed(buttonsTab[value_i + 1, value_j - 1]) || isRed(buttonsTab[value_i - 1, value_j + 1])*/) return true;
+                if (isRed(buttonsTab[value_i, value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j]) || isRed(buttonsTab[value_i, value_j - 1]) /*|| isRed(buttonsTab[value_i + 1, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j - 1]) || isRed(buttonsTab[value_i + 1, value_j - 1]) || isRed(buttonsTab[value_i - 1, value_j + 1])*/) return true;
                 else return false;
             }
             return false;
-
-
-
-
-
-
-
-
-            /*if (value_i < fieldSize && value_j < fieldSize)
-            {
-                if (buttonsTab[value_i, value_j + 1].BackColor == Color.Red ||
-               buttonsTab[value_i, value_j - 1].BackColor == Color.Red ||
-               buttonsTab[value_i + 1, value_j].BackColor == Color.Red ||
-               buttonsTab[value_i - 1, value_j].BackColor == Color.Red)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else if (value_i == fieldSize || value_j == fieldSize)
-            {
-                if (value_i == fieldSize)
-                {
-                    if (buttonsTab[value_i, value_j + 1].BackColor == Color.Red ||
-                         buttonsTab[value_i, value_j - 1].BackColor == Color.Red ||
-                         buttonsTab[value_i + 1, value_j].BackColor == Color.Red ||
-                          buttonsTab[value_i - 1, value_j].BackColor == Color.Red)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else if (value_i - 1 < 0 || value_j == fieldSize)
-            {
-                if (buttonsTab[value_i, value_j + 1].BackColor == Color.Red ||
-                buttonsTab[value_i, value_j - 1].BackColor == Color.Red ||
-                buttonsTab[value_i + 1, value_j].BackColor == Color.Red)
-                {
-                    return true;
-                }
-            }
-            else if (value_i == fieldSize || value_j - 1 < 0)
-            {
-                if (buttonsTab[value_i, value_j + 1].BackColor == Color.Red ||
-                buttonsTab[value_i - 1, value_j].BackColor == Color.Red ||
-                buttonsTab[value_i + 1, value_j].BackColor == Color.Red)
-                {
-                    return true;
-                }
-            }*/
 
         }
 
@@ -196,9 +144,23 @@ namespace Strategy
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void FieldForm_Load(object sender, EventArgs e)
+        private void placePlayers(int number_of_players)
         {
-
+            switch (number_of_players)
+            {
+                case 2:
+                    {
+                        break;
+                    }
+                case 3:
+                    {
+                        break;
+                    }
+                case 4:
+                    {
+                        break;
+                    }
+            }
         }
     }
 }
