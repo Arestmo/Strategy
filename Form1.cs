@@ -78,7 +78,47 @@ namespace Strategy
 
             if(value_i == 0 && value_j == 0)
             {
-                if (isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1])) return true;
+                if (isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i + 1, value_j + 1])) return true;
+                else return false;
+            }
+            if (value_i == 9 && value_j == 9)
+            {
+                if (isRed(buttonsTab[value_i - 1, value_j]) || isRed(buttonsTab[value_i, value_j - 1]) || isRed(buttonsTab[value_i - 1, value_j - 1])) return true;
+                else return false;
+            }
+            if (value_i == 0 && value_j == 9)
+            {
+                if (isRed(buttonsTab[value_i , value_j-1]) || isRed(buttonsTab[value_i+1, value_j ]) || isRed(buttonsTab[value_i + 1, value_j - 1])) return true;
+                else return false;
+            }
+            if (value_i == 9 && value_j == 0)
+            {
+                if (isRed(buttonsTab[value_i - 1, value_j ]) || isRed(buttonsTab[value_i , value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j + 1])) return true;
+                else return false;
+            }
+            if (value_i == 0 && value_j >0 && value_j < 9)
+            {
+                if (isRed(buttonsTab[value_i , value_j-1]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i + 1, value_j ])) return true;
+                else return false;
+            }
+            if (value_i == 9 && value_j > 0 && value_j < 9)
+            {
+                if (isRed(buttonsTab[value_i, value_j - 1]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j])) return true;
+                else return false;
+            }
+            if (value_i > 0 && value_i < 9 && value_j ==0)
+            {
+                if (isRed(buttonsTab[value_i-1, value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1])) return true;
+                else return false;
+            }
+            if (value_i > 0 && value_i < 9 && value_j == 9)
+            {
+                if (isRed(buttonsTab[value_i - 1, value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i - 1, value_j - 1])) return true;
+                else return false;
+            }
+            if (value_i > 0 && value_i < 9 && value_j > 0 && value_j < 9)
+            {
+                if (isRed(buttonsTab[value_i , value_j]) || isRed(buttonsTab[value_i + 1, value_j]) || isRed(buttonsTab[value_i, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j ]) || isRed(buttonsTab[value_i, value_j - 1]) /*|| isRed(buttonsTab[value_i + 1, value_j + 1]) || isRed(buttonsTab[value_i - 1, value_j - 1]) || isRed(buttonsTab[value_i + 1, value_j - 1]) || isRed(buttonsTab[value_i - 1, value_j + 1])*/) return true;
                 else return false;
             }
             return false;
@@ -154,6 +194,11 @@ namespace Strategy
                 DisplayLabel.Text = "SPACJA !";
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void FieldForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
