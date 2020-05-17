@@ -15,6 +15,7 @@ namespace Strategy
         Button[,] buttonsTab;
         int fieldSize;
         int playerTurn = 0;
+        int numbers_of_players=1;
         public FieldForm()
         {
             InitializeComponent();
@@ -28,7 +29,7 @@ namespace Strategy
             Size defaultSize = new Size(50, 50);
             buttonsTab = new Button[fieldSize, fieldSize];
 
-            int numbers_of_players = Decimal.ToInt32(NumberOfPlayers.Value);
+            numbers_of_players = Decimal.ToInt32(NumberOfPlayers.Value);
 
             for (int i = 0; i < buttonsTab.GetLength(0); i++)
             {
@@ -64,19 +65,49 @@ namespace Strategy
 
                 if(RedTurn.Checked)
                 {
-                    playerTurn = 1;
+                    if(numbers_of_players == 1)
+                    {
+                        playerTurn = 1;
+                        RedTurn.Checked = false;
+                        RedTurn.Checked = true;
+                    }
+                    else
+                    {
+                        playerTurn = 1;
+                        GreenTurn.Checked = true;
+                    }
+                    
                 }
                 else if (GreenTurn.Checked)
                 {
-                    playerTurn = 2;
+                    if (numbers_of_players == 2)
+                    {
+                        playerTurn = 2;
+                        RedTurn.Checked = true;
+                    }
+                    else
+                    {
+                        playerTurn = 2;
+                        BlueTurn.Checked = true;
+                    }
                 }
                 else if (BlueTurn.Checked)
                 {
-                    playerTurn = 3;
+                    if (numbers_of_players == 3)
+                    {
+                        playerTurn = 3;
+                        RedTurn.Checked = true;
+                    }
+                    else
+                    {
+                        playerTurn = 3;
+                        YellowTurn.Checked = true;
+                    }
                 }
                 else if ( YellowTurn.Checked)
                 {
                     playerTurn = 4;
+                    RedTurn.Checked = true;
                 }
 
                 switch (playerTurn)
@@ -87,7 +118,6 @@ namespace Strategy
                             {
                                 buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = Color.Red;
                             }
-                            GreenTurn.Checked = true;
                             break;
                         }
                     case 2:
@@ -96,7 +126,6 @@ namespace Strategy
                             {
                                 buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = Color.Green;
                             }
-                            BlueTurn.Checked = true;
                             break;
                         }
                     case 3:
@@ -105,7 +134,6 @@ namespace Strategy
                             {
                                 buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = Color.Blue;
                             }
-                            YellowTurn.Checked = true;
                             break;
                         }
                     case 4:
@@ -114,7 +142,6 @@ namespace Strategy
                             {
                                 buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = Color.Yellow;
                             }
-                            RedTurn.Checked = true;
                             break;
                         }
                 }
@@ -203,12 +230,17 @@ namespace Strategy
                 case 1:
                     {
                         buttonsTab[0, 0].BackColor = Color.Red;
+                        GreenTurn.Visible = false;
+                        BlueTurn.Visible = false;
+                        YellowTurn.Visible = false;
                         break;
                     }
                 case 2:
                     {
                         buttonsTab[0, 0].BackColor = Color.Red;
                         buttonsTab[9, 9].BackColor = Color.Green;
+                        BlueTurn.Visible = false;
+                        YellowTurn.Visible = false;
                         break;
                     }
                 case 3:
@@ -216,6 +248,7 @@ namespace Strategy
                         buttonsTab[0, 0].BackColor = Color.Red;
                         buttonsTab[9, 9].BackColor = Color.Green;
                         buttonsTab[0, 9].BackColor = Color.Blue;
+                        YellowTurn.Visible = false;
                         break;
                     }
                 case 4:
