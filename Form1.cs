@@ -15,7 +15,7 @@ namespace Strategy
         Button[,] buttonsTab;
         int fieldSize;
         int playerTurn = 0;
-        int numbers_of_players=1;
+        int numbers_of_players = 1;
         public FieldForm()
         {
             InitializeComponent();
@@ -63,9 +63,9 @@ namespace Strategy
                 DisplayLabel.Text = button.Name;
                 string[] ButtonNameArr = button.Name.ToString().Split('_');
 
-                if(RedTurn.Checked)
+                if (RedTurn.Checked)
                 {
-                    if(numbers_of_players == 1)
+                    if (numbers_of_players == 1)
                     {
                         playerTurn = 1;
                         RedTurn.Checked = false;
@@ -111,7 +111,7 @@ namespace Strategy
                             GreenTurn.Checked = true;
                         }
                     }
-                    
+
                 }
                 else if (GreenTurn.Checked)
                 {
@@ -209,7 +209,7 @@ namespace Strategy
                         }
                     }
                 }
-                else if ( YellowTurn.Checked)
+                else if (YellowTurn.Checked)
                 {
                     if (IsDead() == 1)
                     {
@@ -298,9 +298,35 @@ namespace Strategy
 
         private bool CheckField(int value_i, int value_j, Color color)
         {
+            bool flag = false;
+            try
+            {
+                if (IsColored(buttonsTab[value_i - 1, value_j], color)) flag = true;
+            }
+            catch { }
+            try
+            {
+                if (IsColored(buttonsTab[value_i + 1, value_j], color)) flag = true;
+            }
+            catch { }
+            try
+            {
+                if (IsColored(buttonsTab[value_i, value_j + 1], color)) flag = true;
+
+            }
+            catch { }
+            try
+            {
+                if (IsColored(buttonsTab[value_i, value_j - 1], color)) flag = true;
+
+            }
+            catch { }
+            return flag;
+
+
             //Warunek pole i = 0, j=0
 
-            if (value_i == 0 && value_j == 0)
+            /*if (value_i == 0 && value_j == 0)
             {
                 if (IsColored(buttonsTab[value_i + 1, value_j], color) || IsColored(buttonsTab[value_i, value_j + 1], color) || IsColored(buttonsTab[value_i + 1, value_j + 1], color)) return true;
                 else return false;
@@ -342,11 +368,11 @@ namespace Strategy
             }
             if (value_i > 0 && value_i < 9 && value_j > 0 && value_j < 9)
             {
-                if (IsColored(buttonsTab[value_i, value_j], color) || IsColored(buttonsTab[value_i + 1, value_j], color) || IsColored(buttonsTab[value_i, value_j + 1], color) || IsColored(buttonsTab[value_i - 1, value_j], color) || IsColored(buttonsTab[value_i, value_j - 1], color) /*|| IsColored(buttonsTab[value_i + 1, value_j + 1]) || IsColored(buttonsTab[value_i - 1, value_j - 1]) || IsColored(buttonsTab[value_i + 1, value_j - 1]) || IsColored(buttonsTab[value_i - 1, value_j + 1])*/) return true;
+                if (IsColored(buttonsTab[value_i, value_j], color) || IsColored(buttonsTab[value_i + 1, value_j], color) || IsColored(buttonsTab[value_i, value_j + 1], color) || IsColored(buttonsTab[value_i - 1, value_j], color) || IsColored(buttonsTab[value_i, value_j - 1], color) *//*|| IsColored(buttonsTab[value_i + 1, value_j + 1]) || IsColored(buttonsTab[value_i - 1, value_j - 1]) || IsColored(buttonsTab[value_i + 1, value_j - 1]) || IsColored(buttonsTab[value_i - 1, value_j + 1])*//*) return true;
                 else return false;
             }
             return false;
-
+*/
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -405,11 +431,11 @@ namespace Strategy
         {
             int i = 0;
             int j = 0;
-            if ( i < 10 )
+            if (i < 10)
             {
                 if (j < 10)
                 {
-                    if(buttonsTab[i, j].BackColor == color)
+                    if (buttonsTab[i, j].BackColor == color)
                     {
                         return true;
                     }
@@ -421,7 +447,7 @@ namespace Strategy
         }
         private int IsDead()
         {
-            if (ColorCheck(Color.Red)==false)
+            if (ColorCheck(Color.Red) == false)
             {
                 return 1;
             }
