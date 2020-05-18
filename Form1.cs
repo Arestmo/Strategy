@@ -73,8 +73,43 @@ namespace Strategy
                     }
                     else
                     {
-                        playerTurn = 1;
-                        GreenTurn.Checked = true;
+                        if (IsDead() == 2)
+                        {
+                            if (IsDead() == 3)
+                            {
+                                if (IsDead() == 4)
+                                {
+                                    if (IsDead() == 1)
+                                    {
+                                        this.Close();
+
+                                    }
+                                    else
+                                    {
+                                        playerTurn = 1;
+                                        RedTurn.Checked = true;
+                                    }
+
+                                }
+                                else
+                                {
+                                    playerTurn = 1;
+                                    YellowTurn.Checked = true;
+                                }
+
+                            }
+                            else
+                            {
+                                playerTurn = 1;
+                                BlueTurn.Checked = true;
+                            }
+
+                        }
+                        else
+                        {
+                            playerTurn = 1;
+                            GreenTurn.Checked = true;
+                        }
                     }
                     
                 }
@@ -87,8 +122,43 @@ namespace Strategy
                     }
                     else
                     {
-                        playerTurn = 2;
-                        BlueTurn.Checked = true;
+                        if (IsDead() == 3)
+                        {
+                            if (IsDead() == 4)
+                            {
+                                if (IsDead() == 1)
+                                {
+                                    if (IsDead() == 2)
+                                    {
+                                        this.Close();
+
+                                    }
+                                    else
+                                    {
+                                        playerTurn = 2;
+                                        GreenTurn.Checked = true;
+                                    }
+
+                                }
+                                else
+                                {
+                                    playerTurn = 2;
+                                    RedTurn.Checked = true;
+                                }
+
+                            }
+                            else
+                            {
+                                playerTurn = 2;
+                                YellowTurn.Checked = true;
+                            }
+
+                        }
+                        else
+                        {
+                            playerTurn = 2;
+                            BlueTurn.Checked = true;
+                        }
                     }
                 }
                 else if (BlueTurn.Checked)
@@ -100,14 +170,84 @@ namespace Strategy
                     }
                     else
                     {
-                        playerTurn = 3;
-                        YellowTurn.Checked = true;
+                        if (IsDead() == 4)
+                        {
+                            if (IsDead() == 1)
+                            {
+                                if (IsDead() == 2)
+                                {
+                                    if (IsDead() == 3)
+                                    {
+                                        this.Close();
+
+                                    }
+                                    else
+                                    {
+                                        playerTurn = 3;
+                                        BlueTurn.Checked = true;
+                                    }
+
+                                }
+                                else
+                                {
+                                    playerTurn = 3;
+                                    GreenTurn.Checked = true;
+                                }
+
+                            }
+                            else
+                            {
+                                playerTurn = 3;
+                                RedTurn.Checked = true;
+                            }
+
+                        }
+                        else
+                        {
+                            playerTurn = 3;
+                            YellowTurn.Checked = true;
+                        }
                     }
                 }
                 else if ( YellowTurn.Checked)
                 {
-                    playerTurn = 4;
-                    RedTurn.Checked = true;
+                    if (IsDead() == 1)
+                    {
+                        if (IsDead() == 2)
+                        {
+                            if (IsDead() == 3)
+                            {
+                                if (IsDead() == 4)
+                                {
+                                    this.Close();
+
+                                }
+                                else
+                                {
+                                    playerTurn = 4;
+                                    YellowTurn.Checked = true;
+                                }
+
+                            }
+                            else
+                            {
+                                playerTurn = 4;
+                                BlueTurn.Checked = true;
+                            }
+
+                        }
+                        else
+                        {
+                            playerTurn = 4;
+                            GreenTurn.Checked = true;
+                        }
+
+                    }
+                    else
+                    {
+                        playerTurn = 4;
+                        RedTurn.Checked = true;
+                    }
                 }
 
                 switch (playerTurn)
@@ -260,6 +400,45 @@ namespace Strategy
                         break;
                     }
             }
+        }
+        private bool ColorCheck(Color color)
+        {
+            int i = 0;
+            int j = 0;
+            if ( i < 10 )
+            {
+                if (j < 10)
+                {
+                    if(buttonsTab[i, j].BackColor == color)
+                    {
+                        return true;
+                    }
+                    j++;
+                }
+                i++;
+            }
+            return false;
+        }
+        private int IsDead()
+        {
+            if (ColorCheck(Color.Red)==false)
+            {
+                return 1;
+            }
+            if (ColorCheck(Color.Green) == false)
+            {
+                return 2;
+            }
+            if (ColorCheck(Color.Blue) == false)
+            {
+                return 3;
+            }
+            if (ColorCheck(Color.Yellow) == false)
+            {
+                return 4;
+            }
+            return 0;
+
         }
 
     }
