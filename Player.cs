@@ -4,30 +4,73 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Strategy
 {
     class Player
     {
-        string Name;
-        Color Color;
-        bool isAlive;
+        private string Name;
+        private Color Color;
+        private bool isAlive;
+        private int fieldsCounter;
+        private int coins;
 
+        public Player(string name, Color color)
+        {
+            Name = name;
+            Color = color;
+            isAlive = true;
+            fieldsCounter = 1;
+            coins = 1500;
+        }
 
+        public bool CheckLife()
+        {
+            //Funkcja sprawdzająca ilość pól gracza i decydująca o jego życiu lub śmierci. Może zwracać komunikat
+            if( fieldsCounter <= 0)
+            {
+                isAlive = false;
+                MessageBox.Show("Player "+ Name +" is now dead! :(");
+            }
+            return isAlive;
+        }
 
-        /* Przbieg gry
-         * 1.Rozpoczęcie gry, wygenerowanie planszy 
-         * 2.Generowanie graczy ( utworzenie gracza, nadanie właściwości)
-         * 3.Rozpoczęcie pierwszej tury: z tablicy graczy pobieramy pierwszego, sprawdzamy czy żyje i czy nie jest ostatnim elementem tablicy) czekamy na wykonanie ruchu jeśli ruch jest poprawny przejdź do następnej tury
-         * 4.Bierzemy drugiego gracza ( drugi element tab graczy ) czekamy na wykonanie ruchu jeśli jest poprawy przejdź do następnej tury, jeśli więcej graczy nie ma zresetuj licznik w tablicy graczy i przejdź do kroku 3
-         * 5.
-         
-         
-         
-         
-         
-         */
-                        
+        public void AddField()
+        {
+            //Funkcja dodająca pole  
+            fieldsCounter += 1;
+        }
+
+        public void RemoveField()
+        {
+            //Funckja odejmująca pole
+            fieldsCounter -= 1;
+        }
+
+        public bool BuySmth(int price)
+        {
+            if( coins - price > 0)
+            {
+                coins -= price;
+                MessageBox.Show("OK");
+                return true;  
+            }
+            else
+            {
+                MessageBox.Show("NO");
+                return false;
+            }
+        }
+
+        public Color GetColor()
+        {
+            return Color;
+        }
+
+        public string GetName()
+        {
+            return Name;
+        }
     }
-
 }

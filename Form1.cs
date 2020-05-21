@@ -13,6 +13,8 @@ namespace Strategy
     public partial class FieldForm : Form
     {
         Button[,] buttonsTab;
+        Player[] playersTab;
+
         int fieldSize;
         int playerTurn = 0;
         int numbers_of_players = 1;
@@ -51,8 +53,7 @@ namespace Strategy
             }
 
             PlacePlayers(numbers_of_players);
-
-
+            DisplayLabel.Text = playersTab[playerTurn].GetName() + " TURN ";
         }
 
         private void ButtonClicked(object sender, EventArgs e)
@@ -60,231 +61,44 @@ namespace Strategy
             if (sender.GetType() == typeof(Button))
             {
                 Button button = sender as Button;
-                DisplayLabel.Text = button.Name;
+                
                 string[] ButtonNameArr = button.Name.ToString().Split('_');
 
-                if (RedTurn.Checked)
+                if(playersTab[playerTurn].CheckLife() == true)
                 {
-                    if (numbers_of_players == 1)
+                    if (CheckField(int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2]), playersTab[playerTurn].GetColor()))
                     {
-                        playerTurn = 1;
-                        RedTurn.Checked = false;
-                        RedTurn.Checked = true;
+                        //Logika sprawdzająca czy pole jest wolne czy "zajęte" jeśli wolne to ok większyć ilość pól gracza AddField, jeśli zajęte to pobrać id gracza z pola i usunąć mu jedno pole RemoveField
+
+
+
+                        buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = playersTab[playerTurn].GetColor();
+                        buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].Text = playerTurn.ToString();
+                        playersTab[playerTurn].AddField();
                     }
-                    else
-                    {
-                        if (IsDead() == 2)
-                        {
-                            if (IsDead() == 3)
-                            {
-                                if (IsDead() == 4)
-                                {
-                                    if (IsDead() == 1)
-                                    {
-                                        this.Close();
-
-                                    }
-                                    else
-                                    {
-                                        playerTurn = 1;
-                                        RedTurn.Checked = true;
-                                    }
-
-                                }
-                                else
-                                {
-                                    playerTurn = 1;
-                                    YellowTurn.Checked = true;
-                                }
-
-                            }
-                            else
-                            {
-                                playerTurn = 1;
-                                BlueTurn.Checked = true;
-                            }
-
-                        }
-                        else
-                        {
-                            playerTurn = 1;
-                            GreenTurn.Checked = true;
-                        }
-                    }
-
+                    
                 }
-                else if (GreenTurn.Checked)
+                else
                 {
-                    if (numbers_of_players == 2)
+                    numbers_of_players -= 1;
+                    for (int i = playerTurn; i < numbers_of_players; i++)
                     {
-                        playerTurn = 2;
-                        RedTurn.Checked = true;
+                        playersTab[playerTurn] = playersTab[playerTurn + 1];
+
+                        //Jesli 2 nie żyje to 
+                        //players[2] = null players[2] = players[3]
                     }
-                    else
-                    {
-                        if (IsDead() == 3)
-                        {
-                            if (IsDead() == 4)
-                            {
-                                if (IsDead() == 1)
-                                {
-                                    if (IsDead() == 2)
-                                    {
-                                        this.Close();
-
-                                    }
-                                    else
-                                    {
-                                        playerTurn = 2;
-                                        GreenTurn.Checked = true;
-                                    }
-
-                                }
-                                else
-                                {
-                                    playerTurn = 2;
-                                    RedTurn.Checked = true;
-                                }
-
-                            }
-                            else
-                            {
-                                playerTurn = 2;
-                                YellowTurn.Checked = true;
-                            }
-
-                        }
-                        else
-                        {
-                            playerTurn = 2;
-                            BlueTurn.Checked = true;
-                        }
-                    }
-                }
-                else if (BlueTurn.Checked)
-                {
-                    if (numbers_of_players == 3)
-                    {
-                        playerTurn = 3;
-                        RedTurn.Checked = true;
-                    }
-                    else
-                    {
-                        if (IsDead() == 4)
-                        {
-                            if (IsDead() == 1)
-                            {
-                                if (IsDead() == 2)
-                                {
-                                    if (IsDead() == 3)
-                                    {
-                                        this.Close();
-
-                                    }
-                                    else
-                                    {
-                                        playerTurn = 3;
-                                        BlueTurn.Checked = true;
-                                    }
-
-                                }
-                                else
-                                {
-                                    playerTurn = 3;
-                                    GreenTurn.Checked = true;
-                                }
-
-                            }
-                            else
-                            {
-                                playerTurn = 3;
-                                RedTurn.Checked = true;
-                            }
-
-                        }
-                        else
-                        {
-                            playerTurn = 3;
-                            YellowTurn.Checked = true;
-                        }
-                    }
-                }
-                else if (YellowTurn.Checked)
-                {
-                    if (IsDead() == 1)
-                    {
-                        if (IsDead() == 2)
-                        {
-                            if (IsDead() == 3)
-                            {
-                                if (IsDead() == 4)
-                                {
-                                    this.Close();
-
-                                }
-                                else
-                                {
-                                    playerTurn = 4;
-                                    YellowTurn.Checked = true;
-                                }
-
-                            }
-                            else
-                            {
-                                playerTurn = 4;
-                                BlueTurn.Checked = true;
-                            }
-
-                        }
-                        else
-                        {
-                            playerTurn = 4;
-                            GreenTurn.Checked = true;
-                        }
-
-                    }
-                    else
-                    {
-                        playerTurn = 4;
-                        RedTurn.Checked = true;
-                    }
+                    Array.Resize<Player>(ref playersTab, numbers_of_players);
                 }
 
-                switch (playerTurn)
-                {
-                    case 1:
-                        {
-                            if (CheckField(int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2]), Color.Red))
-                            {
-                                buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = Color.Red;
-                            }
-                            break;
-                        }
-                    case 2:
-                        {
-                            if (CheckField(int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2]), Color.Green))
-                            {
-                                buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = Color.Green;
-                            }
-                            break;
-                        }
-                    case 3:
-                        {
-                            if (CheckField(int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2]), Color.Blue))
-                            {
-                                buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = Color.Blue;
-                            }
-                            break;
-                        }
-                    case 4:
-                        {
-                            if (CheckField(int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2]), Color.Yellow))
-                            {
-                                buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = Color.Yellow;
-                            }
-                            break;
-                        }
-                }
+                playerTurn += 1;
+                if (playerTurn >= numbers_of_players)
+                    playerTurn = 0;
+                DisplayLabel.Text = playersTab[playerTurn].GetName() + " TURN ";
+
+
+
+                
 
             }
 
@@ -331,80 +145,45 @@ namespace Strategy
 
         private void PlacePlayers(int number_of_players)
         {
+            playersTab = new Player[numbers_of_players];
+
+            Random rand = new Random();
+
+            for (int i = 0; i < numbers_of_players; i++)
+            {
+                playersTab[i] = new Player("Player" + i, Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
+            }
+
+
             switch (number_of_players)
             {
                 case 1:
                     {
-                        buttonsTab[0, 0].BackColor = Color.Red;
-                        GreenTurn.Visible = false;
-                        BlueTurn.Visible = false;
-                        YellowTurn.Visible = false;
+                        buttonsTab[0, 0].BackColor = playersTab[0].GetColor();
                         break;
                     }
                 case 2:
                     {
-                        buttonsTab[0, 0].BackColor = Color.Red;
-                        buttonsTab[9, 9].BackColor = Color.Green;
-                        BlueTurn.Visible = false;
-                        YellowTurn.Visible = false;
+                        buttonsTab[0, 0].BackColor = playersTab[0].GetColor();
+                        buttonsTab[9, 9].BackColor = playersTab[1].GetColor();
                         break;
                     }
                 case 3:
                     {
-                        buttonsTab[0, 0].BackColor = Color.Red;
-                        buttonsTab[9, 9].BackColor = Color.Green;
-                        buttonsTab[0, 9].BackColor = Color.Blue;
-                        YellowTurn.Visible = false;
+                        buttonsTab[0, 0].BackColor = playersTab[0].GetColor(); 
+                        buttonsTab[0, 1].BackColor = playersTab[1].GetColor(); 
+                        buttonsTab[0, 9].BackColor = playersTab[2].GetColor(); 
                         break;
                     }
                 case 4:
                     {
-                        buttonsTab[0, 0].BackColor = Color.Red;
-                        buttonsTab[9, 9].BackColor = Color.Green;
-                        buttonsTab[0, 9].BackColor = Color.Blue;
-                        buttonsTab[9, 0].BackColor = Color.Yellow;
+                        buttonsTab[0, 0].BackColor = playersTab[0].GetColor();
+                        buttonsTab[9, 9].BackColor = playersTab[1].GetColor();
+                        buttonsTab[0, 9].BackColor = playersTab[2].GetColor();
+                        buttonsTab[9, 0].BackColor = playersTab[3].GetColor();
                         break;
                     }
             }
-        }
-        private bool ColorCheck(Color color)
-        {
-            int i = 0;
-            int j = 0;
-            if (i < 10)
-            {
-                if (j < 10)
-                {
-                    if (buttonsTab[i, j].BackColor == color)
-                    {
-                        return true;
-                    }
-                    j++;
-                }
-                i++;
-            }
-            return false;
-        }
-        private int IsDead()
-        {
-            if (ColorCheck(Color.Red) == false)
-            {
-                return 1;
-            }
-            if (ColorCheck(Color.Green) == false)
-            {
-                return 2;
-            }
-            if (ColorCheck(Color.Blue) == false)
-            {
-                return 3;
-            }
-            if (ColorCheck(Color.Yellow) == false)
-            {
-                return 4;
-            }
-            return 0;
-
         }
       
     }
