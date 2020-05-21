@@ -299,80 +299,20 @@ namespace Strategy
         private bool CheckField(int value_i, int value_j, Color color)
         {
             bool flag = false;
-            try
-            {
+            try {
                 if (IsColored(buttonsTab[value_i - 1, value_j], color)) flag = true;
-            }
-            catch { }
-            try
-            {
+            } catch { }
+            try {
                 if (IsColored(buttonsTab[value_i + 1, value_j], color)) flag = true;
-            }
-            catch { }
-            try
-            {
+            } catch { }
+            try {
                 if (IsColored(buttonsTab[value_i, value_j + 1], color)) flag = true;
-
-            }
-            catch { }
-            try
-            {
+            } catch { }
+            try {
                 if (IsColored(buttonsTab[value_i, value_j - 1], color)) flag = true;
-
-            }
-            catch { }
+            } catch { }
             return flag;
 
-
-            //Warunek pole i = 0, j=0
-
-            /*if (value_i == 0 && value_j == 0)
-            {
-                if (IsColored(buttonsTab[value_i + 1, value_j], color) || IsColored(buttonsTab[value_i, value_j + 1], color) || IsColored(buttonsTab[value_i + 1, value_j + 1], color)) return true;
-                else return false;
-            }
-            if (value_i == 9 && value_j == 9)
-            {
-                if (IsColored(buttonsTab[value_i - 1, value_j], color) || IsColored(buttonsTab[value_i, value_j - 1], color) || IsColored(buttonsTab[value_i - 1, value_j - 1], color)) return true;
-                else return false;
-            }
-            if (value_i == 0 && value_j == 9)
-            {
-                if (IsColored(buttonsTab[value_i, value_j - 1], color) || IsColored(buttonsTab[value_i + 1, value_j], color) || IsColored(buttonsTab[value_i + 1, value_j - 1], color)) return true;
-                else return false;
-            }
-            if (value_i == 9 && value_j == 0)
-            {
-                if (IsColored(buttonsTab[value_i - 1, value_j], color) || IsColored(buttonsTab[value_i, value_j + 1], color) || IsColored(buttonsTab[value_i - 1, value_j + 1], color)) return true;
-                else return false;
-            }
-            if (value_i == 0 && value_j > 0 && value_j < 9)
-            {
-                if (IsColored(buttonsTab[value_i, value_j - 1], color) || IsColored(buttonsTab[value_i, value_j + 1], color) || IsColored(buttonsTab[value_i + 1, value_j], color)) return true;
-                else return false;
-            }
-            if (value_i == 9 && value_j > 0 && value_j < 9)
-            {
-                if (IsColored(buttonsTab[value_i, value_j - 1], color) || IsColored(buttonsTab[value_i, value_j + 1], color) || IsColored(buttonsTab[value_i - 1, value_j], color)) return true;
-                else return false;
-            }
-            if (value_i > 0 && value_i < 9 && value_j == 0)
-            {
-                if (IsColored(buttonsTab[value_i - 1, value_j], color) || IsColored(buttonsTab[value_i + 1, value_j], color) || IsColored(buttonsTab[value_i, value_j + 1], color)) return true;
-                else return false;
-            }
-            if (value_i > 0 && value_i < 9 && value_j == 9)
-            {
-                if (IsColored(buttonsTab[value_i - 1, value_j], color) || IsColored(buttonsTab[value_i + 1, value_j], color) || IsColored(buttonsTab[value_i, value_j - 1], color)) return true;
-                else return false;
-            }
-            if (value_i > 0 && value_i < 9 && value_j > 0 && value_j < 9)
-            {
-                if (IsColored(buttonsTab[value_i, value_j], color) || IsColored(buttonsTab[value_i + 1, value_j], color) || IsColored(buttonsTab[value_i, value_j + 1], color) || IsColored(buttonsTab[value_i - 1, value_j], color) || IsColored(buttonsTab[value_i, value_j - 1], color) *//*|| IsColored(buttonsTab[value_i + 1, value_j + 1]) || IsColored(buttonsTab[value_i - 1, value_j - 1]) || IsColored(buttonsTab[value_i + 1, value_j - 1]) || IsColored(buttonsTab[value_i - 1, value_j + 1])*//*) return true;
-                else return false;
-            }
-            return false;
-*/
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -466,6 +406,6 @@ namespace Strategy
             return 0;
 
         }
-
+      
     }
 }
