@@ -61,22 +61,29 @@ namespace Strategy
             if (sender.GetType() == typeof(Button))
             {
                 Button button = sender as Button;
-                
+
                 string[] ButtonNameArr = button.Name.ToString().Split('_');
 
-                if(playersTab[playerTurn].CheckLife() == true)
+                if (playersTab[playerTurn].CheckLife() == true)
                 {
                     if (CheckField(int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2]), playersTab[playerTurn].GetColor()))
                     {
-                        //Logika sprawdzająca czy pole jest wolne czy "zajęte" jeśli wolne to ok większyć ilość pól gracza AddField, jeśli zajęte to pobrać id gracza z pola i usunąć mu jedno pole RemoveField
-
-
-
-                        buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = playersTab[playerTurn].GetColor();
-                        buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].Text = playerTurn.ToString();
-                        playersTab[playerTurn].AddField();
+                        //Logika sprawdzająca czy pole jest wolne czy "zajęte" jeśli wolne to ok zwiększyć ilość pól gracza AddField, jeśli zajęte to pobrać id gracza z pola i usunąć mu jedno pole RemoveField
+                        if (IsFree(int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])))
+                        {
+                            buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = playersTab[playerTurn].GetColor();
+                            buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].Text = playersTab[playerTurn].GetName();
+                            playersTab[playerTurn].AddField();
+                        }
+                        else 
+                        {
+                            int other_player_id = int.Parse(buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].Text);
+                            playersTab[other_player_id].RemoveField();
+                            buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = playersTab[playerTurn].GetColor();
+                            buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].Text = playersTab[playerTurn].GetName();
+                            playersTab[playerTurn].AddField();
+                        }
                     }
-                    
                 }
                 else
                 {
@@ -96,10 +103,6 @@ namespace Strategy
                     playerTurn = 0;
                 DisplayLabel.Text = playersTab[playerTurn].GetName() + " TURN ";
 
-
-
-                
-
             }
 
         }
@@ -113,20 +116,40 @@ namespace Strategy
         private bool CheckField(int value_i, int value_j, Color color)
         {
             bool flag = false;
-            try {
+            try
+            {
                 if (IsColored(buttonsTab[value_i - 1, value_j], color)) flag = true;
-            } catch { }
-            try {
+            }
+            catch { }
+            try
+            {
                 if (IsColored(buttonsTab[value_i + 1, value_j], color)) flag = true;
-            } catch { }
-            try {
+            }
+            catch { }
+            try
+            {
                 if (IsColored(buttonsTab[value_i, value_j + 1], color)) flag = true;
-            } catch { }
-            try {
+            }
+            catch { }
+            try
+            {
                 if (IsColored(buttonsTab[value_i, value_j - 1], color)) flag = true;
-            } catch { }
+            }
+            catch { }
             return flag;
 
+        }
+
+        private bool IsFree(int value_i, int value_j)
+        {
+            if (buttonsTab[value_i, value_j].BackColor == Control.DefaultBackColor )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -151,40 +174,50 @@ namespace Strategy
 
             for (int i = 0; i < numbers_of_players; i++)
             {
-                playersTab[i] = new Player("Player" + i, Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
+                playersTab[i] = new Player(i.ToString(), Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
             }
-
 
             switch (number_of_players)
             {
                 case 1:
                     {
                         buttonsTab[0, 0].BackColor = playersTab[0].GetColor();
+                        buttonsTab[0, 0].Text = 0.ToString();
+                        
                         break;
                     }
                 case 2:
                     {
                         buttonsTab[0, 0].BackColor = playersTab[0].GetColor();
+                        buttonsTab[0, 0].Text = 0.ToString();
                         buttonsTab[9, 9].BackColor = playersTab[1].GetColor();
+                        buttonsTab[9, 9].Text = 1.ToString();
                         break;
                     }
                 case 3:
                     {
-                        buttonsTab[0, 0].BackColor = playersTab[0].GetColor(); 
-                        buttonsTab[0, 1].BackColor = playersTab[1].GetColor(); 
-                        buttonsTab[0, 9].BackColor = playersTab[2].GetColor(); 
+                        buttonsTab[0, 0].BackColor = playersTab[0].GetColor();
+                        buttonsTab[0, 0].Text = 0.ToString();
+                        buttonsTab[0, 1].BackColor = playersTab[1].GetColor();
+                        buttonsTab[0, 1].Text = 1.ToString();
+                        buttonsTab[0, 9].BackColor = playersTab[2].GetColor();
+                        buttonsTab[0, 9].Text = 2.ToString();
                         break;
                     }
                 case 4:
                     {
                         buttonsTab[0, 0].BackColor = playersTab[0].GetColor();
+                        buttonsTab[0, 0].Text = 0.ToString();
                         buttonsTab[9, 9].BackColor = playersTab[1].GetColor();
+                        buttonsTab[9, 9].Text = 1.ToString();
                         buttonsTab[0, 9].BackColor = playersTab[2].GetColor();
+                        buttonsTab[0, 9].Text = 2.ToString();
                         buttonsTab[9, 0].BackColor = playersTab[3].GetColor();
+                        buttonsTab[9, 0].Text = 3.ToString();
                         break;
                     }
             }
         }
-      
+
     }
 }
