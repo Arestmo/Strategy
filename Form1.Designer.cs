@@ -80,7 +80,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1086, 372);
+            this.ClientSize = new System.Drawing.Size(244, 46);
             this.Controls.Add(this.NumberOfPlayers);
             this.Controls.Add(this.DisplayLabel);
             this.Controls.Add(this.ButtonGenerate);

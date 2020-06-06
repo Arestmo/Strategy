@@ -66,6 +66,8 @@ namespace Strategy
 
                 if (playersTab[playerTurn].CheckLife() == true)
                 {
+                    Button clicked_button = buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])];
+
                     if (CheckField(int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2]), playersTab[playerTurn].GetColor()))
                     {
                         //Logika sprawdzająca czy pole jest wolne czy "zajęte" jeśli wolne to ok zwiększyć ilość pól gracza AddField, jeśli zajęte to pobrać id gracza z pola i usunąć mu jedno pole RemoveField
@@ -77,8 +79,8 @@ namespace Strategy
                         }
                         else 
                         {
-                            int other_player_id = int.Parse(buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].Text);
-                            playersTab[other_player_id].RemoveField();
+                            int player_id_in_arr = Array.FindIndex(playersTab, item => item.GetName() == clicked_button.Text);
+                            playersTab[player_id_in_arr].RemoveField();
                             buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].BackColor = playersTab[playerTurn].GetColor();
                             buttonsTab[int.Parse(ButtonNameArr[1]), int.Parse(ButtonNameArr[2])].Text = playersTab[playerTurn].GetName();
                             playersTab[playerTurn].AddField();
@@ -91,9 +93,6 @@ namespace Strategy
                     for (int i = playerTurn; i < numbers_of_players; i++)
                     {
                         playersTab[playerTurn] = playersTab[playerTurn + 1];
-
-                        //Jesli 2 nie żyje to 
-                        //players[2] = null players[2] = players[3]
                     }
                     Array.Resize<Player>(ref playersTab, numbers_of_players);
                 }
